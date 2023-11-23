@@ -4,7 +4,7 @@ import { ExerciseController } from "../controllers/exercise-controller";
 const router = Router();
 
 router.get(
-    "/exercise/all",
+    "/exercises",
     ExerciseController.getListOfExercises
 );
 
@@ -13,4 +13,9 @@ router.get(
     ExerciseController.getExercise
 );
 
-module.exports = router;
+router.post(
+  "/exercise/create",
+  ExerciseController.createExercise
+)
+
+export default router;

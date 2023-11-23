@@ -1,6 +1,6 @@
 import { IAnswerDTO } from "./IAnswerDTO";
+import {IQuestion} from "../models/IQuestion";
 
-export interface IQuestionDTO {
-  questionId: string;
+export interface IQuestionDTO extends IQuestion {
   answers: IAnswerDTO[];
-};
+}

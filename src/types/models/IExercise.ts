@@ -1,4 +1,4 @@
 export interface IExercise {
-  name: string;
   id: string;
+  title: string;
 }
