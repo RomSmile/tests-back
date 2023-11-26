@@ -1,5 +1,3 @@
-// import { Sequelize } from "sequelize";
-// import mysql from 'mysql';
 import { Pool } from 'pg';
 require('dotenv-safe').config();
 

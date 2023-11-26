@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ExerciseController } from "../controllers/exercise-controller";
+import { ExerciseController } from "../controllers/exercise-contoller";
 
 const router = Router();
 
@@ -16,6 +16,11 @@ router.get(
 router.post(
   "/exercise/create",
   ExerciseController.createExercise
+);
+
+router.post(
+  "exercise/check",
+  ExerciseController.checkExercise
 )
 
 export default router;
