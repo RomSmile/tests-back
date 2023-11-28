@@ -6,7 +6,8 @@ const db: typeof Pool = new Pool({
     password: process.env.DATABASE_PASSWORD,
     host: process.env.DATABASE_URL,
     port: process.env.DATABASE_PORT,
-    database: process.env.DATABASE_NAME
+    database: process.env.DATABASE_NAME,
+    connectionString: process.env.DATABASE_URL,
 })
 
 export default db;
