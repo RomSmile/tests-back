@@ -2,7 +2,7 @@ import db from '../../db/database';
 import {ICreateDataBaseService} from "./types";
 export class CreateTableService implements ICreateDataBaseService{
   async createDataBase() {
-    await db.query(`CREATE SCHEMA published;`)
+    //await db.query(`CREATE SCHEMA published;`)
     await db.query(`
       create table published."Exercises"
       (
