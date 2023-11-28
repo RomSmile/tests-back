@@ -5,12 +5,12 @@ import db from "../../db/database";
 
 export class AnswerService implements IAnswerService{
   async getAnswersInQuestion(questionID: string): Promise<IAnswer[]> {
-    const answers: DBReturnType<IAnswer[]> = await db.query(`SELECT * from public."Answers" where "questionId"='${questionID}'`);
+    const answers: DBReturnType<IAnswer[]> = await db.query(`SELECT * from "Answers" where "questionId"='${questionID}'`);
     return answers.rows;
   }
 
   async getAnswersInExercise(exerciseId: string): Promise<IAnswer[]> {
-    const answers: DBReturnType<IAnswer[]> = await db.query(`SELECT * from public."Answers" where "exerciseId"='${exerciseId}'`);
+    const answers: DBReturnType<IAnswer[]> = await db.query(`SELECT * from "Answers" where "exerciseId"='${exerciseId}'`);
 
     return answers.rows;
   }
@@ -18,7 +18,7 @@ export class AnswerService implements IAnswerService{
   async createAnswer(text: string, questionId: string, isCorrect: boolean, exerciseId: string): Promise<{ id: string }> {
     const createdNewAnswer: DBReturnType<{ id: string }> =
       await db.query(`
-          insert into public."Answers" (text, "questionId", "isCorrect", "exerciseId")
+          insert into "Answers" (text, "questionId", "isCorrect", "exerciseId")
           values ('${text}', '${questionId}', ${isCorrect}, '${exerciseId}')
           RETURNING id
       `)

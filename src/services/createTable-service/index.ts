@@ -2,20 +2,20 @@ import db from '../../db/database';
 import {ICreateDataBaseService} from "./types";
 export class CreateTableService implements ICreateDataBaseService{
   async createDataBase() {
-    await db.query(`CREATE SCHEMA public;`)
+    await db.query(`CREATE SCHEMA published;`)
     await db.query(`
-      create table public."Exercises"
+      create table published."Exercises"
       (
           title text,
           id char(36) default gen_random_uuid() not null primary key
       );
       
-      alter table public."Exercises"
+      alter table published."Exercises"
       owner to ${process.env.DATABASE_USER};
     `)
 
     await db.query(`
-      create table public."Questions"
+      create table published."Questions"
       (
           id char(36) default gen_random_uuid() not null primary key,
           title text,
@@ -23,12 +23,12 @@ export class CreateTableService implements ICreateDataBaseService{
           references "Exercises"
       );
       
-      alter table public."Questions"
+      alter table published."Questions"
           owner to ${process.env.DATABASE_USER};
     `)
 
     await db.query(`
-      create table public."Answers"
+      create table published."Answers"
       (
           id char(36) default gen_random_uuid() not null primary key,
           text text,
@@ -39,7 +39,7 @@ export class CreateTableService implements ICreateDataBaseService{
           references "Exercises"
       );
       
-      alter table public."Answers"
+      alter table published."Answers"
           owner to ${process.env.DATABASE_USER};
     `)
   }
