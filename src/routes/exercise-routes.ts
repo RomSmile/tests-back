@@ -13,6 +13,11 @@ router.get(
     ExerciseController.getExercise
 );
 
+router.get(
+  "/hi",
+  ExerciseController.hi
+);
+
 router.post(
   "/exercise/create",
   ExerciseController.createExercise

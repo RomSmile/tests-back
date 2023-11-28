@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import {Request, response, Response} from "express";
 import { StatusCodes } from "http-status-codes";
 import { ExerciseService } from "../../services/exercise-service";
 import { answerCheckExerciseSchema, exerciseCreateSchema } from "./schemas";
@@ -57,5 +57,9 @@ export class ExerciseController {
     const result = answerService.checkAnswers(answers, exerciseId);
 
     res.status(StatusCodes.OK).send({ result });
+  }
+
+  static async hi(_req: Request, res: Response) {
+    res.status(StatusCodes.OK).send({ message: 'hi' })
   }
 }
