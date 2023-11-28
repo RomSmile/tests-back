@@ -1,25 +1,23 @@
 import {IAnswerService, ICheckAnswersParams, ICheckAnswersResult} from "./types";
 import { IAnswer } from "../../types/models/IAnswer";
 import {DBReturnType} from "../../types";
-import pool from "../../db/database";
-import {IAnswerDTO} from "../../types/dto/IAnswerDTO";
-import {boolean} from "joi";
+import db from "../../db/database";
 
 export class AnswerService implements IAnswerService{
   async getAnswersInQuestion(questionID: string): Promise<IAnswer[]> {
-    const answers: DBReturnType<IAnswer[]> = await pool.query(`SELECT * from public."Answers" where "questionId"='${questionID}'`);
+    const answers: DBReturnType<IAnswer[]> = await db.query(`SELECT * from public."Answers" where "questionId"='${questionID}'`);
     return answers.rows;
   }
 
   async getAnswersInExercise(exerciseId: string): Promise<IAnswer[]> {
-    const answers: DBReturnType<IAnswer[]> = await await pool.query(`SELECT * from public."Answers" where "exerciseId"='${exerciseId}'`);
+    const answers: DBReturnType<IAnswer[]> = await db.query(`SELECT * from public."Answers" where "exerciseId"='${exerciseId}'`);
 
     return answers.rows;
   }
 
   async createAnswer(text: string, questionId: string, isCorrect: boolean, exerciseId: string): Promise<{ id: string }> {
     const createdNewAnswer: DBReturnType<{ id: string }> =
-      await pool.query(`
+      await db.query(`
           insert into public."Answers" (text, "questionId", "isCorrect", "exerciseId")
           values ('${text}', '${questionId}', ${isCorrect}, '${exerciseId}')
           RETURNING id

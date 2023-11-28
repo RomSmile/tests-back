@@ -1,5 +1,6 @@
 const express = require('express');
 import router from './routes/exercise-routes';
+import dbRouter from "./routes/database-routes";
 
 const cors = require('cors');
 require('dotenv-safe').config();
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/v1", router);
+app.use("/api/v1", dbRouter);
 
 
 app.listen(port, async () => {

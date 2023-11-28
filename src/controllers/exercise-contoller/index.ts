@@ -58,8 +58,4 @@ export class ExerciseController {
 
     res.status(StatusCodes.OK).send({ result });
   }
-
-  static async hi(_req: Request, res: Response) {
-    res.status(StatusCodes.OK).send({ message: 'hi' })
-  }
 }

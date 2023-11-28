@@ -1,9 +1,7 @@
-import pool from '../../db/database';
+import db from '../../db/database';
 import { ICreateExerciseParams, IExerciseService } from "./types";
 import { DBReturnType } from "../../types";
 import { IExercise } from "../../types/models/IExercise";
-import { IQuestion } from "../../types/models/IQuestion";
-import { IAnswer } from "../../types/models/IAnswer";
 import { IQuestionDTO } from "../../types/dto/IQuestionDTO";
 import { IExerciseDTO } from "../../types/dto/IExerciseDTO";
 import {QuestionService} from "../question-service";
@@ -11,12 +9,12 @@ import {AnswerService} from "../answer-service";
 
 export class ExerciseService implements IExerciseService {
   async getListOfExercises(): Promise<IExerciseDTO[]> {
-    const exercises: DBReturnType<IExerciseDTO[]> = await pool.query('SELECT * from public."Exercises"');
+    const exercises: DBReturnType<IExerciseDTO[]> = await db.query('SELECT * from public."Exercises"');
     return exercises.rows;
   }
 
   async getExercise(id: string): Promise<IExerciseDTO> {
-    const exercises: DBReturnType<IExercise[]> = await pool.query(`SELECT * from public."Exercises" where id='${id}'`);
+    const exercises: DBReturnType<IExercise[]> = await db.query(`SELECT * from public."Exercises" where id='${id}'`);
     const questionService = new QuestionService();
     const answerService = new AnswerService();
 
@@ -44,7 +42,7 @@ export class ExerciseService implements IExerciseService {
     const questionService = new QuestionService();
     const answerService = new AnswerService();
 
-    const createdExercise: DBReturnType<{ id: string }[]> = await pool.query(`insert into public."Exercises" (title) values ('${exercise.title}') RETURNING id`)
+    const createdExercise: DBReturnType<{ id: string }[]> = await db.query(`insert into public."Exercises" (title) values ('${exercise.title}') RETURNING id`)
     const idOfNewExercise = createdExercise.rows[0].id;
 
     const questions = await Promise.all(exercise.questions.map(async (question) => {
