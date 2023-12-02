@@ -2,7 +2,7 @@ import db from '../../db/database';
 import {ICreateDataBaseService} from "./types";
 export class CreateTableService implements ICreateDataBaseService{
   async createDataBase() {
-    //await db.query(`CREATE SCHEMA published;`)
+    await db.query(`CREATE SCHEMA published;`)
     await db.query(`
       create table published."Exercises"
       (
@@ -20,7 +20,7 @@ export class CreateTableService implements ICreateDataBaseService{
           id char(36) default gen_random_uuid() not null primary key,
           title text,
           exerciseId char(36)
-          references "Exercises"
+          references published."Exercises"
       );
       
       alter table published."Questions"
@@ -33,10 +33,10 @@ export class CreateTableService implements ICreateDataBaseService{
           id char(36) default gen_random_uuid() not null primary key,
           text text,
           "questionId" char(36) constraint "Answers_questionid_fkey"
-          references "Questions",
+          references published."Questions",
           "isCorrect"  boolean  default false not null,
           "exerciseId" char(36) not null
-          references "Exercises"
+          references published."Exercises"
       );
       
       alter table published."Answers"
