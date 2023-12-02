@@ -9,7 +9,7 @@ import {AnswerService} from "../answer-service";
 
 export class ExerciseService implements IExerciseService {
   async getListOfExercises(): Promise<IExerciseDTO[]> {
-    const exercises: DBReturnType<IExerciseDTO[]> = await db.query('SELECT * from "Exercises"');
+    const exercises: DBReturnType<IExerciseDTO[]> = await db.query('SELECT * from published."Exercises"');
     return exercises.rows;
   }
 
