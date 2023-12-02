@@ -14,7 +14,7 @@ export class ExerciseService implements IExerciseService {
   }
 
   async getExercise(id: string): Promise<IExerciseDTO> {
-    const exercises: DBReturnType<IExercise[]> = await db.query(`SELECT * from "Exercises" where id='${id}'`);
+    const exercises: DBReturnType<IExercise[]> = await db.query(`SELECT * from published."Exercises" where id='${id}'`);
     const questionService = new QuestionService();
     const answerService = new AnswerService();
 
@@ -42,7 +42,7 @@ export class ExerciseService implements IExerciseService {
     const questionService = new QuestionService();
     const answerService = new AnswerService();
 
-    const createdExercise: DBReturnType<{ id: string }[]> = await db.query(`insert into "Exercises" (title) values ('${exercise.title}') RETURNING id`)
+    const createdExercise: DBReturnType<{ id: string }[]> = await db.query(`insert into published."Exercises" (title) values ('${exercise.title}') RETURNING id`)
     const idOfNewExercise = createdExercise.rows[0].id;
 
     const questions = await Promise.all(exercise.questions.map(async (question) => {
