@@ -7,8 +7,18 @@ import { AnswerService } from "../../services/answer-service";
 
 export class ExerciseController {
   static async getListOfExercises(req: Request, res: Response) {
+    const { filter } = req.query;
     const service = new ExerciseService();
-    res.status(StatusCodes.OK).send({ items: await service.getListOfExercises() });
+    const exercises = filter
+      ? await service.getListOfExercises()
+        .then(
+          (response) =>
+            response.filter(
+              (item) => item.title.toLowerCase().includes((filter as string).toLowerCase())
+            )
+        )
+      : await service.getListOfExercises();
+    res.status(StatusCodes.OK).send({ items: exercises });
   }
 
   static async getExercise(req: Request, res: Response) {
