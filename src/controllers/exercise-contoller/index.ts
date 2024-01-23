@@ -42,6 +42,7 @@ export class ExerciseController {
 
     if (isValidParams.error) {
       res.status(StatusCodes.BAD_REQUEST).send({ message: isValidParams.error.details[0].message });
+      return;
     }
 
     const service = new ExerciseService();
