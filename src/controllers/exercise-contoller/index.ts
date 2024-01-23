@@ -4,6 +4,7 @@ import { ExerciseService } from "../../services/exercise-service";
 import { answerCheckExerciseSchema, exerciseCreateSchema } from "./schemas";
 import { IAnswerDTO } from "../../types/dto/IAnswerDTO";
 import { AnswerService } from "../../services/answer-service";
+import { IExerciseDTOCreate } from "../../types/dto/IExerciseDTO";
 
 export class ExerciseController {
   static async getListOfExercises(req: Request, res: Response) {
@@ -35,7 +36,7 @@ export class ExerciseController {
 
   static async createExercise(req: Request, res: Response) {
     const { title, questions } = req.body;
-    const exercise = { title, questions };
+    const exercise: IExerciseDTOCreate = { title, questions };
 
     const isValidParams = exerciseCreateSchema.validate(exercise);
 

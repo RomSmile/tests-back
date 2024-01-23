@@ -1,4 +1,4 @@
-import { IExerciseDTO } from "../../types/dto/IExerciseDTO";
+import { IExerciseDTO, IExerciseDTOCreate } from "../../types/dto/IExerciseDTO";
 import { IAnswer } from "../../types/models/IAnswer";
 
 export interface IExerciseService {
@@ -7,10 +7,4 @@ export interface IExerciseService {
   createExercise(exercise: ICreateExerciseParams): Promise<IExerciseDTO>;
 }
 
-export interface ICreateExerciseParams {
-  title: 'string',
-  questions: {
-    title: string,
-    answers: IAnswer[],
-  }[]
-}
+export type ICreateExerciseParams = IExerciseDTOCreate;

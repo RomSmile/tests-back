@@ -51,9 +51,14 @@ export class ExerciseService implements IExerciseService {
 
       const idOfNewQuestion = createdQuestion.id;
       const answers = await Promise.all(question.answers.map(async (answer) => {
-        const createdNewAnswer = await answerService.createAnswer(answer.text, idOfNewQuestion, answer.isCorrect, idOfNewExercise );
+        const createdNewAnswer = await answerService.createAnswer(
+          answer.text,
+          idOfNewQuestion,
+          answer.isCorrectAnswer,
+          idOfNewExercise
+        );
 
-        return { ...answer, id: createdNewAnswer.id, questionId: idOfNewQuestion }
+        return { ...answer, isCorrect: answer.isCorrectAnswer, id: createdNewAnswer.id, questionId: idOfNewQuestion }
       }))
 
       return { ...question, id: idOfNewQuestion, answers: answers, exerciseId: idOfNewExercise };
