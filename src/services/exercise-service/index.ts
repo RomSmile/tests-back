@@ -4,8 +4,8 @@ import { DBReturnType } from "../../types";
 import { IExercise } from "../../types/models/IExercise";
 import { IQuestionDTO } from "../../types/dto/IQuestionDTO";
 import { IExerciseDTO } from "../../types/dto/IExerciseDTO";
-import {QuestionService} from "../question-service";
-import {AnswerService} from "../answer-service";
+import { QuestionService } from "../question-service";
+import { AnswerService } from "../answer-service";
 
 export class ExerciseService implements IExerciseService {
   async getListOfExercises(): Promise<IExerciseDTO[]> {

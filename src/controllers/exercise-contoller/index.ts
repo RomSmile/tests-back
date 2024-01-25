@@ -8,8 +8,10 @@ import { IExerciseDTOCreate } from "../../types/dto/IExerciseDTO";
 
 export class ExerciseController {
   static async getListOfExercises(req: Request, res: Response) {
-    const { filter } = req.query;
+    const { filter, page } = req.query;
     const service = new ExerciseService();
+    const pageNumber = page ? +page : 1;
+
     const exercises = filter
       ? await service.getListOfExercises()
         .then(
@@ -19,7 +21,11 @@ export class ExerciseController {
             )
         )
       : await service.getListOfExercises();
-    res.status(StatusCodes.OK).send({ items: exercises });
+
+    res.status(StatusCodes.OK).send({
+      items: [ ...exercises ].splice(pageNumber === 1 ? 0 : pageNumber * 10 - 10, 10),
+      ...(pageNumber * 10 < exercises.length && { nextPage: pageNumber + 1 })
+    });
   }
 
   static async getExercise(req: Request, res: Response) {
