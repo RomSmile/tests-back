@@ -11,7 +11,9 @@ export class ExerciseController {
     const { filter, page } = req.query;
     const service = new ExerciseService();
 
-    if (+page === 0 || (page as string).match(/[a-z][`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/gi)) {
+    const regularForOnlyNumbers = /[a-z][`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/gi;
+
+    if (+page === 0 || !regularForOnlyNumbers.test((page as string))) {
       res.status(StatusCodes.BAD_REQUEST).send({message: "This pageNumber is not valid"})
     }
 
