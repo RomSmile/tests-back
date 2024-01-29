@@ -13,7 +13,7 @@ export class ExerciseController {
 
     const regularForOnlyNumbers = /[a-z][`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/gi;
 
-    if (+page === 0 || regularForOnlyNumbers.test((page as string))) {
+    if (+page === 0 || !regularForOnlyNumbers.test((page as string))) {
       res.status(StatusCodes.BAD_REQUEST).send({message: "This page number is not valid"});
       return;
     }
