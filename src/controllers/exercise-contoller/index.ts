@@ -22,6 +22,10 @@ export class ExerciseController {
         )
       : await service.getListOfExercises();
 
+    if (pageNumber * 10 < exercises.length) {
+      res.status(StatusCodes.BAD_REQUEST).send({message: "This pageNumber is not valid"})
+    }
+
     res.status(StatusCodes.OK).send({
       items: [ ...exercises ].splice(pageNumber === 1 ? 0 : pageNumber * 10 - 10, 10),
       ...(pageNumber * 10 < exercises.length && { nextPage: pageNumber + 1 })
