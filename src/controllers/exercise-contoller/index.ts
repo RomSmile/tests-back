@@ -10,6 +10,11 @@ export class ExerciseController {
   static async getListOfExercises(req: Request, res: Response) {
     const { filter, page } = req.query;
     const service = new ExerciseService();
+
+    if (+page === 0 || (page as string).match(/[a-z][`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/gi)) {
+      res.status(StatusCodes.BAD_REQUEST).send({message: "This pageNumber is not valid"})
+    }
+
     const pageNumber = page ? +page : 1;
 
     const exercises = filter
