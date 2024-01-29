@@ -11,9 +11,11 @@ export class ExerciseController {
     const { filter, page } = req.query;
     const service = new ExerciseService();
 
-    const regularForOnlyNumbers = /[a-z][`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/gi;
+    const regularForOnlyNumbers = /[`a-z!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/gi;
 
-    if (+page === 0 || !regularForOnlyNumbers.test((page as string))) {
+    console.log(!regularForOnlyNumbers.test((page as string)))
+
+    if (+page === 0 || regularForOnlyNumbers.test((page as string))) {
       res.status(StatusCodes.BAD_REQUEST).send({message: "This page number is not valid"});
       return;
     }
@@ -31,12 +33,13 @@ export class ExerciseController {
       : await service.getListOfExercises();
 
     if (pageNumber * 10 > exercises.length) {
-      res.status(StatusCodes.BAD_REQUEST).send({message: "This page number is not valid"})
+      res.status(StatusCodes.BAD_REQUEST).send({message: "This page number is not valid"});
+      return;
     }
 
     res.status(StatusCodes.OK).send({
       items: [ ...exercises ].splice(pageNumber === 1 ? 0 : pageNumber * 10 - 10, 10),
-      ...((pageNumber + 1) * 10 < exercises.length && { nextPage: pageNumber + 1 })
+      lastPage: Math.ceil(exercises.length % 10),
     });
   }
 
