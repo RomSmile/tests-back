@@ -13,8 +13,9 @@ export class ExerciseController {
 
     const regularForOnlyNumbers = /[a-z][`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/gi;
 
-    if (+page === 0 || !regularForOnlyNumbers.test((page as string))) {
-      res.status(StatusCodes.BAD_REQUEST).send({message: "This pageNumber is not valid"})
+    if (+page === 0 || regularForOnlyNumbers.test((page as string))) {
+      res.status(StatusCodes.BAD_REQUEST).send({message: "This page number is not valid"});
+      return;
     }
 
     const pageNumber = page ? +page : 1;
@@ -29,13 +30,13 @@ export class ExerciseController {
         )
       : await service.getListOfExercises();
 
-    if (pageNumber * 10 < exercises.length) {
-      res.status(StatusCodes.BAD_REQUEST).send({message: "This pageNumber is not valid"})
+    if (pageNumber * 10 > exercises.length) {
+      res.status(StatusCodes.BAD_REQUEST).send({message: "This page number is not valid"})
     }
 
     res.status(StatusCodes.OK).send({
       items: [ ...exercises ].splice(pageNumber === 1 ? 0 : pageNumber * 10 - 10, 10),
-      ...(pageNumber * 10 < exercises.length && { nextPage: pageNumber + 1 })
+      ...((pageNumber + 1) * 10 < exercises.length && { nextPage: pageNumber + 1 })
     });
   }
 
@@ -45,7 +46,8 @@ export class ExerciseController {
     const exerciseToFind = await service.getExercise(id);
 
     if (!exerciseToFind) {
-      return res.status(StatusCodes.NOT_FOUND).send('This exercise not found');
+      res.status(StatusCodes.NOT_FOUND).send('This exercise not found');
+      return;
     }
 
     res.status(StatusCodes.OK).send({ ...exerciseToFind });
