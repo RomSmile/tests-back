@@ -32,12 +32,8 @@ export class ExerciseController {
 
     const lastPage = Math.ceil(exercises.length / 10);
 
-    console.log('last page: ', lastPage)
-    console.log('page number: ', pageNumber)
-    console.log('type of page naumber: ', typeof pageNumber)
-
-    if (pageNumber > lastPage) {
-      res.status(StatusCodes.BAD_REQUEST).send({message: "This page numberis not valid"});
+    if (pageNumber > (lastPage === 0 ? 1 : lastPage)) {
+      res.status(StatusCodes.BAD_REQUEST).send({message: "This page number is not valid"});
       return;
     }
 
