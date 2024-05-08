@@ -3,7 +3,7 @@ import Joi from "joi";
 export const exerciseCreateSchema = Joi.object({
   title: Joi.string().max(30).min(3).required(),
   questions: Joi.array().items({
-    title: Joi.string().max(30).min(3).required(),
+    title: Joi.string().max(300).min(3).required(),
     answers: Joi.array().items({
       text: Joi.string().min(3).required(),
       isCorrectAnswer: Joi.boolean().required(),
