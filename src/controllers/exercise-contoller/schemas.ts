@@ -7,7 +7,7 @@ export const exerciseCreateSchema = Joi.object({
     answers: Joi.array().items({
       text: Joi.string().min(3).required(),
       isCorrectAnswer: Joi.boolean().required(),
-    }).has(Joi.object({ text: Joi.string(), isCorrectAnswer: Joi.boolean().valid(true)})).min(3).required()
+    }).has(Joi.object({ text: Joi.string(), isCorrectAnswer: Joi.boolean().valid(true)})).min(2).required()
   }).min(2).required(),
 })
 
