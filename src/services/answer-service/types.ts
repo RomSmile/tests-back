@@ -1,5 +1,4 @@
 import { IAnswer } from "../../types/models/IAnswer";
-import Joi, {boolean, string} from "joi";
 
 export interface IAnswerService {
   getAnswersInQuestion(questionId: string): Promise<IAnswer[]>;
@@ -12,7 +11,7 @@ export interface ICheckAnswersParams {
   exerciseId: string;
 }
 
-interface ICheckAnswerResult extends Omit<ICheckAnswersParams, 'isSelected'> {
+export interface ICheckAnswerResult extends Omit<ICheckAnswersParams, 'isSelected'> {
   isCorrectAnswer: boolean;
 }
 

@@ -27,12 +27,10 @@ export class AnswerService implements IAnswerService{
   }
 
   async checkAnswers(answers: ICheckAnswersParams[], exerciseId: string): Promise<ICheckAnswersResult> {
-    const answersInExercise: IAnswer[] = await this.getAnswersInExercise(exerciseId);
     let mark = answers.length;
-
-    const resultAnswers = answers.map((answer) => {
-      const thisAnswerInExercise = answersInExercise.find((exerciseToFind) => exerciseToFind.id = answer.id);
-
+    const resultAnswers = await Promise.all(answers.map(async (answer) => {
+      const allAnswersInQuestion = await this.getAnswersInQuestion(answer.questionId)
+      const thisAnswerInExercise = allAnswersInQuestion.find((exerciseToFind) => exerciseToFind.id === answer.id)
       if (!(thisAnswerInExercise.isCorrect && answer.isSelected)) {
         mark--;
       }
@@ -43,7 +41,7 @@ export class AnswerService implements IAnswerService{
         questionId: answer.questionId,
         exerciseId: answer.exerciseId,
       }
-    })
+    }))
 
     return {
       answers: resultAnswers,

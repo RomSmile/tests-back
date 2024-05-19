@@ -4,13 +4,13 @@ import { ExerciseController } from "../controllers/exercise-contoller";
 const router = Router();
 
 router.get(
-    "/exercises",
-    ExerciseController.getListOfExercises
+  "/exercises",
+  ExerciseController.getListOfExercises
 );
 
 router.get(
-    "/exercise/:id",
-    ExerciseController.getExercise
+  "/exercise/:id",
+  ExerciseController.getExercise
 );
 
 router.post(
