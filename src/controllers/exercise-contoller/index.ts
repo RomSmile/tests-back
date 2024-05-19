@@ -88,7 +88,7 @@ export class ExerciseController {
       res.status(StatusCodes.BAD_REQUEST).send({ message: 'All answers should be related from one exercise' });
     }
 
-    const result = await answerService.checkAnswers(answers, exerciseId);
+    const result = await answerService.checkAnswers(answers);
 
     res.status(StatusCodes.OK).send(result);
   }

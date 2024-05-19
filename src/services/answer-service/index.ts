@@ -26,7 +26,7 @@ export class AnswerService implements IAnswerService{
     return createdNewAnswer.rows[0];
   }
 
-  async checkAnswers(answers: ICheckAnswersParams[], exerciseId: string): Promise<ICheckAnswersResult> {
+  async checkAnswers(answers: ICheckAnswersParams[]): Promise<ICheckAnswersResult> {
     let mark = answers.length;
     const resultAnswers = await Promise.all(answers.map(async (answer) => {
       const allAnswersInQuestion = await this.getAnswersInQuestion(answer.questionId)
