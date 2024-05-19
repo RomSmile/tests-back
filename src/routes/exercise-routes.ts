@@ -19,7 +19,7 @@ router.post(
 );
 
 router.post(
-  "exercise/check",
+  "/exercise/check",
   ExerciseController.checkExercise
 )
 

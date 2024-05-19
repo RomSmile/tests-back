@@ -1,4 +1,4 @@
-import {Request, response, Response} from "express";
+import {Request, Response} from "express";
 import { StatusCodes } from "http-status-codes";
 import { ExerciseService } from "../../services/exercise-service";
 import { answerCheckExerciseSchema, exerciseCreateSchema } from "./schemas";
@@ -88,8 +88,8 @@ export class ExerciseController {
       res.status(StatusCodes.BAD_REQUEST).send({ message: 'All answers should be related from one exercise' });
     }
 
-    const result = answerService.checkAnswers(answers, exerciseId);
+    const result = await answerService.checkAnswers(answers, exerciseId);
 
-    res.status(StatusCodes.OK).send({ result });
+    res.status(StatusCodes.OK).send(result);
   }
 }

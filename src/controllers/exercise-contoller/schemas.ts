@@ -13,7 +13,7 @@ export const exerciseCreateSchema = Joi.object({
 
 export const answerCheckExerciseSchema = Joi.array().items({
   id: Joi.string().min(36).max(36).required(),
-  isSelected: Joi.boolean().valid(true).required(),
+  isSelected: Joi.boolean().required(),
   questionId: Joi.string().min(36).max(36).required(),
   exerciseId: Joi.string().min(36).max(36).required(),
 })
